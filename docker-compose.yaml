@@ -20,6 +20,7 @@ services:
             FTLCONF_dns_listeningMode: "ALL"
             FTLCONF_dns_reply_host_IPv4: "192.168.100.200"
             FTLCONF_dns_reply_host_force4: "true"
+            FTLCONF_dns_upstreams: "172.30.0.3#5335"
         volumes:
             # For persisting Pi-hole's databases and common configuration file
             - "../etc-pihole:/etc/pihole"
