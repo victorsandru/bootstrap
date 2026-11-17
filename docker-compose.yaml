@@ -40,6 +40,8 @@ services:
         container_name: unbound
         image: klutchell/unbound@sha256:5af26c41f24021dc58a19dd641b09f008a66b90229723117c085293429c684f5
         restart: unless-stopped
+        ports:
+            - "5335:5335/tcp"
         volumes:
             - ./configs/unbound:/etc/unbound/custom.conf.d:ro
         networks:
