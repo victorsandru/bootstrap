@@ -22,7 +22,7 @@ services:
             FTLCONF_dns_reply_host_force4: "true"
         volumes:
             # For persisting Pi-hole's databases and common configuration file
-            - "./etc-pihole:/etc/pihole"
+            - "../etc-pihole:/etc/pihole"
             # Uncomment the below if you have custom dnsmasq config files that you want to persist. Not needed for most starting fresh with Pi-hole v6. If you're upgrading from v5 you and have used this directory before, you should keep it enabled for the first v6 container start to allow for a complete migration. It can be removed afterwards. Needs environment variable FTLCONF_misc_etc_dnsmasq_d: 'true'
             #- './etc-dnsmasq.d:/etc/dnsmasq.d'
         cap_add:
@@ -32,9 +32,22 @@ services:
             # Optional, if Pi-hole should get some more processing time
             - SYS_NICE
         restart: unless-stopped
+        networks:
+            dns-services:
+                ipv4_address: 172.30.0.2
+        depends_on: [unbound]
     unbound:
         container_name: unbound
         image: klutchell/unbound@sha256:5af26c41f24021dc58a19dd641b09f008a66b90229723117c085293429c684f5
         restart: unless-stopped
         volumes:
-            - ./configs/unbound.conf:/etc/unbound/unbound.conf.d/pi-hole.conf
+            - ./configs/unbound:/etc/unbound/custom.conf.d:ro
+        networks:
+            dns-services:
+                ipv4_address: 172.30.0.3
+networks:
+    dns-services:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.30.0.0/24
