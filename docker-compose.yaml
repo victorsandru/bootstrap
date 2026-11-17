@@ -35,7 +35,7 @@ services:
         networks:
             dns-services:
                 ipv4_address: 172.30.0.2
-        depends_on: [unbound]
+        # depends_on: [unbound]
     unbound:
         container_name: unbound
         image: klutchell/unbound@sha256:5af26c41f24021dc58a19dd641b09f008a66b90229723117c085293429c684f5
