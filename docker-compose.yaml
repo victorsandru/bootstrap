@@ -1,4 +1,3 @@
-# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
 services:
     pihole:
         container_name: pihole
@@ -46,9 +45,54 @@ services:
         networks:
             dns-services:
                 ipv4_address: 172.30.0.3
+    forgejo:
+        image: codeberg.org/forgejo/forgejo@sha256:39362ab93a94c0c9b8b330d2a877ddbb3f02fa8c0cba1b8d686d437b39f36a04 #v17.0.2-rootless
+        restart: unless-stopped
+        environment:
+            USER_UID: "1000"
+            USER_GID: "1000"
+            # FORGEJO__database_DB_TYPE: "sqlite3"
+        networks:
+            - forgejo
+        volumes:
+            - ./forgejo:/data
+            - /etc/localtime:/etc/localtime:ro
+        ports:
+            - "3000:3000"
+            - "222:22"
+    #     depends_on:
+    #         - sqlite3-db
+    # sqlite3-db:
+    #     image: keinos/sqlite3@sha256:b577e65892c6468d94b390097eda4488e05253470c161bdea68a05abb961fa17 #v3.54.1
+    #     restart: unless-stopped
+    #     environment:
+    #         - sqlite3_ROOT_PASSWORD=forgejo
+    #         - sqlite3_USER=forgejo
+    #         - sqlite3_PASSWORD=forgejo
+    #         - sqlite3_DATABASE=forgejo
+    #     networks:
+    #         - forgejo
+    #     volumes:
+    #         - sqlite3-data:/var/lib/sqlite3
+
 networks:
     dns-services:
         ipam:
-            driver: default
             config:
                 - subnet: 172.30.0.0/24
+    forgejo:
+        external: false
+
+# volumes:
+#     forgejo-data:
+#         driver: local
+#         driver_opts:
+#             type: none
+#             o: bind
+#             device: ./forgejo
+#     sqlite3-data:
+#         driver: local
+#         driver_opts:
+#             type: none
+#             o: bind
+#             device: ./sqlite3
