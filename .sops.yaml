@@ -1,3 +1,10 @@
+#1: pi
+#2: personal
+#3: break glass offline
+
 creation_rules:
-  - path: secrets.*\.yaml$
-    age: age1x4qed8znewutp6eqph2lak7w5ejkhheldq7arjpm78x5wx32uqpq3ewtfp
+  - path_regex: secrets.*\.yaml$
+    age: >-
+      age1k4vr570dwma5q6psa397htuctn7qtrdzz0ufswmpv3c8vrrgh3cq2hg3vt,
+      age1x0q8ymslkxd8xrsypej3cnuje6resrvnk8f9ec8etq57xl9mresqlt4jku,
+      age1w2vh0gpx9vj9um925qmv7h2yy7ftl34s6xc56y2978wqxzpex46qs3e7nq
