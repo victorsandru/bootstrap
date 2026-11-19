@@ -12,7 +12,7 @@ services:
             - "443:443/tcp"
         environment:
             TZ: "America/Toronto"
-            WEBPASSWORD_FILE: "/run/secrets/pihole_password"
+            WEBPASSWORD_FILE: "pihole_password"
             FTLCONF_dns_listeningMode: "ALL"
             FTLCONF_dns_reply_host_IPv4: "192.168.100.200"
             FTLCONF_dns_reply_host_force4: "true"
