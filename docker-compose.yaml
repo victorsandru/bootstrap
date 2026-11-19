@@ -52,9 +52,10 @@ services:
             - forgejo
         volumes:
             - /etc/localtime:/etc/localtime:ro
+            - ./forgejo:/var/lib/gitea
         ports:
             - "3000:3000"
-            - "222:22"
+            - "222:2222"
         secrets:
             - forgejo_secret_key
     #     depends_on:
