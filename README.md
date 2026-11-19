@@ -12,3 +12,11 @@ git push node main
 
 The bootstrap host is configured for it's Git to accept the push over ssh and update the files on disk. `git config receive.denyCurrentBranch updateInstead`
 
+### Runbooks
+
+#### Secrets Management with SOPS
+
+WSL:
+    `SOPS_AGE_KEY="$(op.exe read 'op://<vault>/<key>/<field>')" sops edit secrets.enc.yaml`
+Mac:
+    `SOPS_AGE_KEY="$(op read 'op://<vault>/<key>/<field>')" sops edit secrets.enc.yaml`
