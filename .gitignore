@@ -1,3 +1,4 @@
 etc-pihole/
 mysql/
 forgejo/
+secrets.dec.yaml
